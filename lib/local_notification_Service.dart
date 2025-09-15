@@ -4,6 +4,7 @@ class LocalNotificationService {
   //1*
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
+  static onTap(NotificationResponse notificationResponse) {}
 
   static Future init() async {
     //3-
@@ -12,13 +13,32 @@ class LocalNotificationService {
       iOS: DarwinInitializationSettings(),
     );
     //2-
-    flutterLocalNotificationsPlugin.initialize(settings);
+    flutterLocalNotificationsPlugin.initialize(
+      settings,
+      onDidReceiveBackgroundNotificationResponse: onTap,
+      onDidReceiveNotificationResponse: onTap,
+    );
+
+    //basic notification
   }
 
-  // static final LocalNotificationService _notificationService =
-  //     LocalNotificationService._internal();
-  // factory LocalNotificationService() => _notificationService;
-  // LocalNotificationService._internal();
+  static void showBasicNotification() async {
+    NotificationDetails details = NotificationDetails(
+      android: AndroidNotificationDetails(
+        'id 1',
+        'basic notification',
+        importance: Importance.max,
+        priority: Priority.high,
+      ),
+    );
+    await flutterLocalNotificationsPlugin.show(
+      1,
+      'notification',
+      'maghwry',
+      details,
+      payload: "pay Load",
+    );
+  }
 }
 
 ///todo:1-setup
