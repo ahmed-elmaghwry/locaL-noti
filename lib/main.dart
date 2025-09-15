@@ -42,6 +42,19 @@ class HomeScreen extends StatelessWidget {
               leading: Icon(Icons.notifications),
               title: Text('basic notification'),
               trailing: IconButton(
+                onPressed: () {
+                  LocalNotificationService.cancelNotification(id: 0);
+                },
+                icon: Icon(Icons.cancel, color: Colors.red),
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                LocalNotificationService.showRepeatedNotification();
+              },
+              leading: Icon(Icons.notifications),
+              title: Text('repeated notification'),
+              trailing: IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.cancel, color: Colors.red),
               ),

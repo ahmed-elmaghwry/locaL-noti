@@ -39,6 +39,30 @@ class LocalNotificationService {
       payload: "pay Load",
     );
   }
+
+  static void showRepeatedNotification() async {
+    NotificationDetails details = NotificationDetails(
+      android: AndroidNotificationDetails(
+        'id 1',
+        'repeated notification',
+        importance: Importance.max,
+        priority: Priority.high,
+      ),
+    );
+    await flutterLocalNotificationsPlugin.periodicallyShow(
+      0,
+      'Repeated notification',
+      'maghwry',
+      RepeatInterval.everyMinute,
+      details,
+      payload: "pay Load data",
+      androidScheduleMode: AndroidScheduleMode.alarmClock,
+    );
+  }
+
+  static void cancelNotification({required int id}) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
+  }
 }
 
 ///todo:1-setup
